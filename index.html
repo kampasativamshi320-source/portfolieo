@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kampasati Vamshi | Personal Portfolio & Data Analytics</title>
+  <meta name="description" content="Official portfolio website of Kampasati Vamshi — Data Analyst & Machine Learning Engineer specializing in Python, SQL, YOLOv8, Computer Vision, and Next.js full-stack development.">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            bg: '#030712',
+            surface: '#0b1329',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.3); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.6); }
+
+    /* Glassmorphism Classes */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 15px 35px -10px rgba(59, 130, 246, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .animate-spin-slow { animation: spin-slow 15s linear infinite; }
+  </style>
+</head>
+<body class="relative min-h-screen bg-[#030712] text-slate-100 antialiased">
+
+  <!-- Top Scroll Progress Bar -->
+  <div class="fixed top-0 left-0 right-0 h-1 z-50 bg-slate-900/50">
+    <div id="scroll-progress" class="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-400 w-0 transition-all duration-150"></div>
+  </div>
+
+  <!-- Interactive Canvas Background -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></canvas>
+
+  <!-- Sticky Glass Navbar -->
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-40 py-5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-purple-600 p-[2px] shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+          <div class="w-full h-full bg-[#0b1329] rounded-[10px] flex items-center justify-center font-bold text-lg text-blue-400">
+            KV
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">Kampasati Vamshi</span>
+          <span class="text-[10px] text-slate-400 font-mono tracking-wider">DATA ANALYST & ML</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1 bg-slate-900/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 text-xs font-medium">
+        <a href="#hero" class="px-3.5 py-1.5 rounded-full text-white bg-blue-600/80">Home</a>
+        <a href="#about" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">About</a>
+        <a href="#skills" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">Skills</a>
+        <a href="#projects" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">Projects</a>
+        <a href="#experience" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">Experience</a>
+        <a href="#education" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">Education</a>
+        <a href="#certifications" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">Certifications</a>
+        <a href="#contact" class="px-3.5 py-1.5 rounded-full text-slate-400 hover:text-white">Contact</a>
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <button onclick="openResumeModal()" class="flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-xl text-slate-200 bg-slate-800/80 border border-slate-700 hover:border-blue-500/50">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-400"></i>
+          <span>Resume</span>
+        </button>
+        <a href="#contact" class="flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-[0_0_20px_rgba(59,130,246,0.4)]">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span>Hire Me</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="min-h-screen pt-32 pb-20 flex flex-col justify-center items-center">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left Text -->
+          <div class="lg:col-span-7 flex flex-col items-start">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono mb-6">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <span>Available for Data Analyst & Software Engineer Roles</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-tight mb-4">
+              Hi, I'm <span class="gradient-text">Kampasati Vamshi</span>
+            </h1>
+
+            <div class="h-12 text-xl sm:text-3xl font-semibold text-slate-300 mb-6 flex items-center gap-2 font-mono">
+              <span class="text-purple-400">&gt;</span>
+              <span id="typewriter" class="text-white border-b-2 border-blue-500">Data Analyst</span>
+              <span class="animate-pulse text-blue-400">|</span>
+            </div>
+
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-8">
+              Computer Science Undergraduate focused on turning complex datasets into intelligent, actionable insights. Specialist in <strong class="text-slate-200">Python, SQL, Machine Learning (YOLOv8, LSTM)</strong>, and modern full-stack web applications.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Python</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">SQL</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Pandas</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">YOLOv8</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">React</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Next.js</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">MySQL</span>
+              <span class="px-3 py-1 text-xs font-mono rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Deloitte Certified</span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+              <a href="#projects" class="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-medium shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:scale-105 transition-all">
+                <span>View Projects</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <button onclick="openResumeModal()" class="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700">
+                <i data-lucide="download" class="w-4 h-4 text-blue-400"></i>
+                <span>Download Resume</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Avatar Image -->
+          <div class="lg:col-span-5 flex justify-center items-center relative">
+            <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+              <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-500 to-purple-600 animate-spin-slow opacity-60 blur-md"></div>
+              <div class="absolute inset-[3px] rounded-full bg-[#0b1329] p-2 overflow-hidden border border-white/10 shadow-2xl">
+                <img src="/images/profile.jpg" alt="Kampasati Vamshi" class="w-full h-full object-cover rounded-full">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Hero Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-8 border-t border-slate-800/80">
+          <div class="glass-card p-5 rounded-2xl text-center">
+            <span class="text-3xl font-extrabold gradient-text font-mono">100%</span>
+            <div class="text-xs text-slate-400 mt-1">Secondary Score</div>
+          </div>
+          <div class="glass-card p-5 rounded-2xl text-center">
+            <span class="text-3xl font-extrabold gradient-text font-mono">CSE</span>
+            <div class="text-xs text-slate-400 mt-1">B.Tech Specialization</div>
+          </div>
+          <div class="glass-card p-5 rounded-2xl text-center">
+            <span class="text-3xl font-extrabold gradient-text font-mono">4+</span>
+            <div class="text-xs text-slate-400 mt-1">Key ML Projects</div>
+          </div>
+          <div class="glass-card p-5 rounded-2xl text-center">
+            <span class="text-3xl font-extrabold gradient-text font-mono">Deloitte+</span>
+            <div class="text-xs text-slate-400 mt-1">Certifications</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 relative border-t border-slate-800/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center text-center mb-16">
+          <span class="px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-mono mb-4">ABOUT ME</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Empowering Decisions Through <span class="gradient-text">Data & AI</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-white/10">
+            <h3 class="text-xl font-bold text-white mb-4">Professional Summary</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Computer Science undergraduate with a strong passion for data analysis, machine learning, Python, SQL, and data visualization. Experienced in developing real-time computer vision models (YOLOv8 & LSTM), predictive analytics workflows, and enterprise data solutions. Quick learner with strong communication skills, an analytical mindset, and a commitment to transforming complex raw data into actionable business intelligence.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+              <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400"></i> Python, SQL, Pandas & NumPy</div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400"></i> Real-time YOLOv8 + LSTM System</div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400"></i> Deloitte Data Simulation Honors</div>
+              <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400"></i> Full Stack Web & RDBMS</div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 glass-card p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold text-white mb-4">Career Objective</h3>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Seeking an entry-level opportunity as a Data Analyst or Software Engineer to gain industry experience, collaborate with cross-functional teams, and build high-performance data-driven products that deliver measurable business impact.
+              </p>
+            </div>
+            <div class="pt-6 border-t border-slate-800 text-xs font-mono text-slate-400">
+              Location: <strong class="text-white">Hyderabad, India</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-24 relative border-t border-slate-800/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center text-center mb-16">
+          <span class="px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono mb-4">PORTFOLIO</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Featured <span class="gradient-text">Projects</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div class="glass-card rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between">
+            <div>
+              <img src="/images/projects/vehicle-detection.jpg" alt="Vehicle Detection" class="h-52 w-full object-cover">
+              <div class="p-6">
+                <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] font-mono">AI & ML</span>
+                <h3 class="text-xl font-bold text-white mt-3 mb-2">Realtime Vehicle Detection & Tracking</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-4">Hybrid traffic management system integrating YOLOv8 for real-time detection and LSTM neural networks for traffic flow forecasting.</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">YOLOv8</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">LSTM</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">Python</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">OpenCV</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="glass-card rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between">
+            <div>
+              <img src="/images/projects/data-analytics.jpg" alt="Data Analytics" class="h-52 w-full object-cover">
+              <div class="p-6">
+                <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-[10px] font-mono">Data Analytics</span>
+                <h3 class="text-xl font-bold text-white mt-3 mb-2">Predictive Data Analytics Engine</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-4">Automated ETL, data cleaning, and statistical visualization pipeline processing raw enterprise datasets into actionable insights.</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">Python</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">SQL</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">Pandas</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">React</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="glass-card rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between">
+            <div>
+              <img src="/images/projects/deloitte-analytics.jpg" alt="Deloitte Case" class="h-52 w-full object-cover">
+              <div class="p-6">
+                <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-mono">Deloitte Simulation</span>
+                <h3 class="text-xl font-bold text-white mt-3 mb-2">Deloitte Data Analytics Case</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-4">Enterprise data cleansing, customer demographic trend modeling, and executive report generation.</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">Python</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">Data Cleaning</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 text-[10px] font-mono">Excel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 relative border-t border-slate-800/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col items-center text-center mb-16">
+          <span class="px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-mono mb-4">LET'S CONNECT</span>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Get In <span class="gradient-text">Touch</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="glass-card p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+              <i data-lucide="mail" class="w-6 h-6 text-blue-400"></i>
+              <div>
+                <div class="text-[10px] font-mono text-slate-400">Email</div>
+                <a href="mailto:kampaasativamshi@gmail.com" class="text-sm font-bold text-white hover:text-blue-400">kampaasativamshi@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+              <i data-lucide="phone" class="w-6 h-6 text-purple-400"></i>
+              <div>
+                <div class="text-[10px] font-mono text-slate-400">Phone</div>
+                <a href="tel:+919014437124" class="text-sm font-bold text-white hover:text-purple-400">+91 9014437124</a>
+              </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl border border-white/10 flex items-center gap-4">
+              <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
+              <div>
+                <div class="text-[10px] font-mono text-slate-400">Location</div>
+                <div class="text-sm font-bold text-white">Hyderabad, India</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 glass-card p-8 rounded-3xl border border-white/10">
+            <h3 class="text-xl font-bold text-white mb-6">Send Message</h3>
+            <form onsubmit="alert('Thank you! Your message has been sent to Kampasati Vamshi.'); return false;" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-blue-500">
+                <input type="email" placeholder="Your Email" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-blue-500">
+              </div>
+              <input type="text" placeholder="Subject" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-blue-500">
+              <textarea rows="4" placeholder="Your Message" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+              <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-sm shadow-lg">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center text-xs font-mono text-slate-500 border-t border-slate-800">
+      © 2026 Kampasati Vamshi. All Rights Reserved.
+    </footer>
+  </div>
+
+  <!-- Resume Modal -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="bg-slate-900 border border-white/10 rounded-3xl p-8 max-w-3xl w-full max-h-[85vh] overflow-y-auto relative">
+      <button onclick="closeResumeModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-white">✕</button>
+      <h2 class="text-2xl font-bold text-white mb-2">Kampasati Vamshi - Resume</h2>
+      <p class="text-xs text-slate-400 mb-6">Computer Science Undergraduate | Data Analyst & Machine Learning</p>
+      
+      <div class="space-y-4 text-xs text-slate-300">
+        <div><strong>Email:</strong> kampaasativamshi@gmail.com | <strong>Phone:</strong> +91 9014437124 | <strong>Location:</strong> Hyderabad</div>
+        <div><strong>Education:</strong> B.Tech (CSE) Gurunanak Inst of Tech (2022-2026) | Intermediate MPC Sri Chaitanya (84.2%) | Secondary School (100%)</div>
+        <div><strong>Skills:</strong> Python, SQL, Pandas, NumPy, Matplotlib, YOLOv8, LSTM, MySQL, Git, Next.js, Tailwind CSS</div>
+      </div>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold">Print / Save PDF</button>
+        <button onclick="closeResumeModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript logic -->
+  <script>
+    lucide.createIcons();
+
+    // Typewriter
+    const roles = ["Data Analyst", "Machine Learning Engineer", "Python & SQL Specialist", "Computer Vision Developer"];
+    let roleIdx = 0, charIdx = 0, isDeleting = false;
+    const el = document.getElementById("typewriter");
+
+    function type() {
+      const current = roles[roleIdx];
+      if (isDeleting) {
+        el.textContent = current.substring(0, charIdx--);
+      } else {
+        el.textContent = current.substring(0, charIdx++);
+      }
+
+      if (!isDeleting && charIdx === current.length + 1) {
+        isDeleting = true;
+        setTimeout(type, 1800);
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        setTimeout(type, 400);
+      } else {
+        setTimeout(type, isDeleting ? 40 : 90);
+      }
+    }
+    type();
+
+    // Canvas Particles
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 50 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      r: Math.random() * 2 + 1
+    }));
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(59, 130, 246, 0.4)';
+        ctx.fill();
+      });
+      requestAnimationFrame(render);
+    }
+    render();
+
+    // Resume Modal
+    function openResumeModal() { document.getElementById('resume-modal').classList.remove('hidden'); document.getElementById('resume-modal').classList.add('flex'); }
+    function closeResumeModal() { document.getElementById('resume-modal').classList.add('hidden'); document.getElementById('resume-modal').classList.remove('flex'); }
+
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / total) * 100;
+      document.getElementById('scroll-progress').style.width = `${progress}%`;
+    });
+  </script>
+</body>
+</html>
